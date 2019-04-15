@@ -1,10 +1,60 @@
 <!DOCTYPE html>
 <head>
     <title>Etch-a-sketch</title>
+    <style>
+        #container {
+            height: 960px;
+            width: 960px;
+        }
+
+        .grid-item {
+            border: 1px black solid;
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            float:left;
+            transition: 0.3s;
+        }
+    </style>
 </head>
 <body>
     <h1>Etch-a-sketch</h1>
+    <button id="buttonReset">Reset</button>
+
     <div id="container">
-        
+
     </div>
 </body>
+<script>
+
+function createGrid(desiredRows) {
+    const containerNode = document.querySelector('#container');
+    
+    for (i=0; i < desiredRows * desiredRows; i++) {
+        let newDiv = document.createElement('div');
+        newDiv.classList.add('grid-item');
+        newDiv.style.width = `calc(100%/${desiredRows})`;
+        newDiv.style.height = newDiv.style.width;
+        containerNode.appendChild(newDiv);
+    }
+    const gridBoxes = document.querySelectorAll('.grid-item');
+    gridBoxes.forEach((box) => {
+        box.addEventListener('mouseenter', (e) => {
+            box.style.background = 'black';
+        })
+    })
+}
+
+function removeGrid() {
+    const containerNode = document.querySelector('#container');
+    containerNode.innerHTML = "";
+}
+
+const buttonReset = document.querySelector('#buttonReset');
+buttonReset.addEventListener('click', (e) => {
+    removeGrid();
+    let squareRequest = prompt("How many squares?") * 1;
+    createGrid(squareRequest);
+})
+
+</script>
